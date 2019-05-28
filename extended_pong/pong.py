@@ -1,8 +1,8 @@
 """
-Pong (Single Player)
+Pong (Two Player)
 ====================
 
-A pong game. (reference implementation)
+A pong game.
 """
 from random import randint
 from sys import exit
@@ -114,6 +114,15 @@ class Pong:
             pygame.K_w,
             pygame.K_s,
             0,
+            self.HEIGHT / 2 - self.PADDLE_HEIGHT / 2,
+            self.PADDLE_WIDTH,
+            self.PADDLE_HEIGHT
+        ))
+        self.paddles.append(Paddle(
+            self.BALL_VELOCITY,
+            pygame.K_k,
+            pygame.K_j,
+            100,
             self.HEIGHT / 2 - self.PADDLE_HEIGHT / 2,
             self.PADDLE_WIDTH,
             self.PADDLE_HEIGHT
