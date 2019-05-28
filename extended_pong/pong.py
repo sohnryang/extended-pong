@@ -72,6 +72,13 @@ class Ball(pygame.Rect):
         self.angle = 0
         super().__init__(*args, **kwargs)
 
+    def move_ball(self):
+        """
+        Move the ball.
+        """
+        self.x += self.velocity
+        self.y += self.angle
+
 
 class Pong:
     """
@@ -143,6 +150,7 @@ class Pong:
                 pygame.draw.rect(self.screen, self.COLOR, paddle)
 
             for ball in self.balls:
+                ball.move_ball()
                 pygame.draw.rect(self.screen, self.COLOR, ball)
 
             pygame.display.flip()
