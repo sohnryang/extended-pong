@@ -67,3 +67,24 @@ class Paddle(pygame.Rect):
         self.up_key = up_key
         self.down_key = down_key
         super().__init__(*args, **kwargs)
+
+
+class Ball(pygame.Rect):
+    """
+    Ball(self, velocity, *args, **kwargs)
+
+    A ball object.
+
+    Parameters
+    ----------
+
+    velocity : int
+        The velocity of the ball.
+    """
+    def __init__(self, velocity, *args, **kwargs):
+        """
+        Initialize self.
+        """
+        self.velocity = velocity
+        self.angle = 0
+        super().__init__(*args, **kwargs)
