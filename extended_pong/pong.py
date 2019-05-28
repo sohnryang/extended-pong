@@ -7,42 +7,6 @@ A pong game. (reference implementation)
 import pygame
 
 
-class Pong:
-    """
-    Pong(self)
-
-    The object for pong game.
-    """
-    HEIGHT = 800
-    WIDTH = 1600
-
-    PADDLE_WIDTH = 10
-    PADDLE_HEIGHT = 100
-
-    BALL_WIDTH = 10
-    BALL_VELOCITY = 10
-
-    COLOR = (255, 255, 255)
-
-    def __init__(self):
-        """
-        Initialize self.
-        """
-        pygame.init()
-        self.screen = pygame.display.set_mode((1600, 800))
-        self.clock = pygame.time.Clock()
-
-    def game_loop(self):
-        """
-        Game loop for pong.
-        """
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN and \
-                        event.key == pygame.K_ESCAPE:
-                    return
-
-
 class Paddle(pygame.Rect):
     """
     Paddle(self, velocity, up_key, down_key, *args, **kwars)
@@ -88,3 +52,39 @@ class Ball(pygame.Rect):
         self.velocity = velocity
         self.angle = 0
         super().__init__(*args, **kwargs)
+
+
+class Pong:
+    """
+    Pong(self)
+
+    The object for pong game.
+    """
+    HEIGHT = 800
+    WIDTH = 1600
+
+    PADDLE_WIDTH = 10
+    PADDLE_HEIGHT = 100
+
+    BALL_WIDTH = 10
+    BALL_VELOCITY = 10
+
+    COLOR = (255, 255, 255)
+
+    def __init__(self):
+        """
+        Initialize self.
+        """
+        pygame.init()
+        self.screen = pygame.display.set_mode((1600, 800))
+        self.clock = pygame.time.Clock()
+
+    def game_loop(self):
+        """
+        Game loop for pong.
+        """
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and \
+                        event.key == pygame.K_ESCAPE:
+                    return
