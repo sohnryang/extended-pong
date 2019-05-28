@@ -32,6 +32,17 @@ class Paddle(pygame.Rect):
         self.down_key = down_key
         super().__init__(*args, **kwargs)
 
+    def move_paddle(self, board_height):
+        keys_pressed = pygame.key.get_pressed()
+
+        if keys_pressed[self.up_key]:
+            if self.y - self.velocity > 0:
+                self.y -= self.velocity
+
+        if keys_pressed[self.down_key]:
+            if self.y - self.velocity < board_height - self.height:
+                self.y += self.velocity
+
 
 class Ball(pygame.Rect):
     """
@@ -79,6 +90,34 @@ class Pong:
         self.screen = pygame.display.set_mode((1600, 800))
         self.clock = pygame.time.Clock()
 
+        self.paddles = []
+        self.balls = []
+        self.paddles.append(Paddle(
+            self.BALL_VELOCITY,
+            pygame.K_w,
+            pygame.K_s,
+            0,
+            self.HEIGHT / 2 - self.PADDLE_HEIGHT / 2,
+            self.PADDLE_WIDTH,
+            self.PADDLE_HEIGHT
+        ))
+        self.paddles.append(Paddle(
+            self.BALL_VELOCITY,
+            pygame.K_UP,
+            pygame.K_DOWN,
+            self.WIDTH - self.PADDLE_WIDTH,
+            self.HEIGHT / 2 - self.PADDLE_HEIGHT / 2,
+            self.PADDLE_WIDTH,
+            self.PADDLE_HEIGHT
+        ))
+        self.balls.append(Ball(
+            self.BALL_VELOCITY,
+            self.WIDTH / 2 - self.BALL_WIDTH / 2,
+            self.HEIGHT / 2 - self.BALL_WIDTH / 2,
+            self.BALL_WIDTH,
+            self.BALL_WIDTH
+        ))
+
     def game_loop(self):
         """
         Game loop for pong.
@@ -88,3 +127,15 @@ class Pong:
                 if event.type == pygame.KEYDOWN and \
                         event.key == pygame.K_ESCAPE:
                     return
+
+            self.screen.fill((0, 0, 0))
+
+            for paddle in self.paddles:
+                paddle.move_paddle(self.HEIGHT)
+                pygame.draw.rect(self.screen, self.COLOR, paddle)
+
+            for ball in self.balls:
+                pygame.draw.rect(self.screen, self.COLOR, ball)
+
+            pygame.display.flip()
+            self.clock.tick(60)
