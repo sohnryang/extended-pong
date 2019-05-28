@@ -60,6 +60,9 @@ class Paddle(pygame.Rect):
         The key to trigger down movement of paddle
     """
     def __init__(self, velocity, up_key, down_key, *args, **kwargs):
+        """
+        Initialize self.
+        """
         self.velocity = velocity
         self.up_key = up_key
         self.down_key = down_key
