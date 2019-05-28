@@ -4,6 +4,8 @@ Pong (Single Player)
 
 A pong game. (reference implementation)
 """
+from random import randint
+from sys import exit
 import pygame
 
 
@@ -133,6 +135,25 @@ class Pong:
             self.BALL_WIDTH
         ))
 
+    def check_ball_hits_wall(self):
+        """
+        Check if ball hits wall.
+        """
+        for ball in self.balls:
+            if ball.x > self.WIDTH or ball.x < 0:
+                print('game over')
+                exit(0)
+            if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
+                ball.angle = -ball.angle
+
+    def check_ball_hits_paddle(self):
+        for ball in self.balls:
+            for paddle in self.paddles:
+                if ball.colliderect(paddle):
+                    ball.velocity = -ball.velocity
+                    ball.angle = randint(-10, 10)
+                    break
+
     def game_loop(self):
         """
         Game loop for pong.
@@ -143,6 +164,8 @@ class Pong:
                         event.key == pygame.K_ESCAPE:
                     return
 
+            self.check_ball_hits_paddle()
+            self.check_ball_hits_wall()
             self.screen.fill((0, 0, 0))
 
             for paddle in self.paddles:
