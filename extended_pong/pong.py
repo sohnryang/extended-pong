@@ -33,6 +33,14 @@ class Paddle(pygame.Rect):
         super().__init__(*args, **kwargs)
 
     def move_paddle(self, board_height):
+        """
+        Move the paddle.
+
+        Parameters
+        ----------
+        board_height : int
+            Height of the gameplay board.
+        """
         keys_pressed = pygame.key.get_pressed()
 
         if keys_pressed[self.up_key]:
