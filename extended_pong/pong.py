@@ -134,6 +134,7 @@ class Pong:
             self.BALL_WIDTH,
             self.BALL_WIDTH
         ))
+        self.central_line = pygame.Rect(self.WIDTH/2, 0, 1, self.HEIGHT)
 
     def check_ball_hits_wall(self):
         """
@@ -175,6 +176,8 @@ class Pong:
             for ball in self.balls:
                 ball.move_ball()
                 pygame.draw.rect(self.screen, self.COLOR, ball)
+
+            pygame.draw.rect(self.screen, self.COLOR, self.central_line)
 
             pygame.display.flip()
             self.clock.tick(60)
