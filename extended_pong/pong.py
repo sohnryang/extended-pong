@@ -1,6 +1,6 @@
 """
-Pong (Two Player)
-====================
+Pong (Cooperative Two Player)
+=============================
 
 A pong game.
 """
@@ -127,15 +127,6 @@ class Pong:
             self.PADDLE_WIDTH,
             self.PADDLE_HEIGHT
         ))
-        self.paddles.append(Paddle(
-            self.BALL_VELOCITY,
-            pygame.K_UP,
-            pygame.K_DOWN,
-            self.WIDTH - self.PADDLE_WIDTH,
-            self.HEIGHT / 2 - self.PADDLE_HEIGHT / 2,
-            self.PADDLE_WIDTH,
-            self.PADDLE_HEIGHT
-        ))
         self.balls.append(Ball(
             self.BALL_VELOCITY,
             self.WIDTH / 2 - self.BALL_WIDTH / 2,
@@ -150,11 +141,14 @@ class Pong:
         Check if ball hits wall.
         """
         for ball in self.balls:
-            if ball.x > self.WIDTH or ball.x < 0:
+            if ball.x < 0:
                 print('game over')
                 exit(0)
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
                 ball.angle = -ball.angle
+            if ball.x > self.WIDTH:
+                ball.velocity = -ball.velocity
+                ball.angle = randint(-10, 10)
 
     def check_ball_hits_paddle(self):
         for ball in self.balls:
